@@ -83,3 +83,11 @@
 - `unit_mart_daily_state_metrics_single_row`
 - `unit_mart_fraud_by_category_basic`
 ---
+
+## Скриншоты
+
+### DAG
+![DAG](dag.png)
+
+### Логи
+![Logs](logs.png)
