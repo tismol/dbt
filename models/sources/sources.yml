@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+  - name: fraud
+    database: fraud
+    schema: fraud
+    tables:
+      - name: transactions
+        description: "Raw ClickHouse transactions."
+        columns:
+          - name: transaction_time
+            description: "Transaction timestamp."
+          - name: merch
+            description: "Merchant."
+          - name: category
+            description: "Transaction category."
+          - name: amount
+            description: "Transaction amount."
+          - name: name_1
+            description: "Customer first name."
+          - name: name_2
+            description: "Customer second name."
+          - name: gender
+            description: "Customer gender."
+          - name: street
+            description: "Street."
+          - name: one_city
+            description: "City."
+          - name: us_state
+            description: "US state."
+          - name: post_code
+            description: "Postal code."
+          - name: lat
+            description: "Customer latitude."
+          - name: lon
+            description: "Customer longitude."
+          - name: population_city
+            description: "City population."
+          - name: jobs
+            description: "Job label."
+          - name: merchant_lat
+            description: "Merchant latitude."
+          - name: merchant_lon
+            description: "Merchant longitude."
+          - name: target
+            description: "Fraud label (0/1)."

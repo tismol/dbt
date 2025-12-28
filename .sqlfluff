@@ -1,0 +1,9 @@
+[sqlfluff]
+dialect = clickhouse
+templater = jinja
+max_line_length = 120
+exclude_rules = CP03,AL03
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
+load_macros_from_path = macros

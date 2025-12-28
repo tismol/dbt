@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: "Staging."
+    columns:
+      - name: transaction_ts
+        description: "Transaction timestamp."
+        tests:
+          - not_null
+
+      - name: us_state
+        description: "US state code."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_be_between:
+              arguments:
+                min_value: 2
+                max_value: 2
+
+      - name: category
+        description: "Transaction category."
+        tests:
+          - not_null
+
+      - name: amount
+        description: "Transaction amount."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 0
+
+      - name: target
+        description: "Fraud label (0/1)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+
+      - name: gender
+        description: "Customer gender (M/F)."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["M", "F"]
+
+      - name: customer_id
+        description: "Surrogate customer identifier."
+        tests:
+          - not_null

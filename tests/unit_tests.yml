@@ -1,0 +1,33 @@
+version: 2
+
+unit_tests:
+  - name: unit_mart_fraud_by_category_basic
+    model: mart_fraud_by_category
+    given:
+      - input: ref('stg_transactions')
+        rows:
+          - {category: "health_fitness", amount: 100.0, target: 0}
+          - {category: "health_fitness", amount: 50.0,  target: 1}
+          - {category: "shopping", amount: 200.0, target: 0}
+    expect:
+      rows:
+        - {category: "health_fitness", transaction_cnt: 2, fraud_cnt: 1, fraud_rate: 50.0, amount_sum: 150.0, fraud_amount_sum: 50.0}
+        - {category: "shopping", transaction_cnt: 1, fraud_cnt: 0, fraud_rate: 0.0, amount_sum: 200.0, fraud_amount_sum: 0.0}
+
+  - name: unit_mart_daily_state_metrics_single_row
+    model: mart_daily_state_metrics
+    given:
+      - input: ref('stg_transactions')
+        rows:
+          - {transaction_date: "2019-05-13", us_state: "CA", amount: 1200.0, is_large_amount: 1}
+    expect:
+      rows:
+        - {
+            transaction_date: "2019-05-13",
+            us_state: "CA",
+            transaction_cnt: 1,
+            amount_sum: 1200.0,
+            avg_amount: 1200.0,
+            p95_amount: 1200.0,
+            large_transaction_pct: 100.0
+          }
